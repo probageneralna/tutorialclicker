@@ -11,7 +11,6 @@ public class SplashScreen extends AbstractScreen{
 
 	public SplashScreen(final TutorialClickerGame game) { //finalne, bo jezeli przekazujemy cos do taksa to musi miec pewnosc, ze to sie nie zmieni
 		super(game);
-		init();
 
 		Timer.schedule(new Task() {
 
@@ -22,8 +21,8 @@ public class SplashScreen extends AbstractScreen{
 		}, 1); //task wykona sie po 1 sekundzie
 	}
 
-	private void init() {
-		//TODO implements better assets loading when game grows
+	@Override
+	protected void init() {
 		splashImg = new Texture("badlogic.jpg");
 	}
 
@@ -34,5 +33,8 @@ public class SplashScreen extends AbstractScreen{
 		spriteBatch.draw(splashImg, 0, 0);
 		spriteBatch.end();
 	}
+
+
+
 
 }

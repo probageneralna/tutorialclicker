@@ -22,8 +22,12 @@ public abstract class AbstractScreen implements Screen{
 		this.game = game; //lokanie zapisana gra, z ktorej mozna rozne rzeczy pobierac
 		createCamera();
 		stage = new Stage(new StretchViewport(TutorialClickerGame.WIDTH, TutorialClickerGame.HEIGHT, camera)); //2 odc 32min
-		spriteBatch = new SpriteBatch();Gdx.input.setInputProcessor(stage); //input pobierany ze stage
+		spriteBatch = new SpriteBatch();
+		Gdx.input.setInputProcessor(stage); //input pobierany ze stage
+		init();
 	}
+
+	protected abstract void init();
 
 	private void createCamera() {
 		camera = new OrthographicCamera();
