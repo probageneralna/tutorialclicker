@@ -37,8 +37,9 @@ public class GameplayScreen extends AbstractScreen {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) { //metoda po kliknieciu co ma sie stac
-				System.out.println("ckicl");
-
+				
+				player.reactOnClick();
+				
 				return super.touchDown(event, x, y, pointer, button);
 			}
 
