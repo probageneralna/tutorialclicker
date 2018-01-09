@@ -14,6 +14,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	private Player player;
 	private Button playerButton; // to w co sie wciska, zeby player sie poruszal
+	private Button resetScoreButton;
 	private Label scoreLabel;
 
 	public GameplayScreen(TutorialClickerGame game) {
@@ -24,12 +25,35 @@ public class GameplayScreen extends AbstractScreen {
 	protected void init() {
 		initPlayer();
 		initPlayerButton();
+		initResetScoreButton();
 		initScoreLabel();
+	}
+
+	private void initResetScoreButton() {
+		resetScoreButton = new Button(new ButtonStyle());
+		resetScoreButton.setWidth(100);
+		resetScoreButton.setHeight(100);
+		resetScoreButton.setX(330);
+		resetScoreButton.setY(560);
+		resetScoreButton.setDebug(true);
+		stage.addActor(resetScoreButton);
+
+		resetScoreButton.addListener(new ClickListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
+				
+				game.resetGameScore();
+				
+				return super.touchDown(event, x, y, pointer, button);
+			}
+		});
+
 	}
 
 	private void initScoreLabel() {
 		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = new BitmapFont(); //odmyslny styl
+		labelStyle.font = new BitmapFont(); // odmyslny styl
 		scoreLabel = new Label("Test 123", labelStyle);
 		scoreLabel.setX(20);
 		scoreLabel.setY(650);
@@ -43,17 +67,22 @@ public class GameplayScreen extends AbstractScreen {
 		playerButton.setHeight(360);
 		playerButton.setX(10);
 		playerButton.setY(170);
-		playerButton.setDebug(true); //taki zarys
+		playerButton.setDebug(true); // taki zarys
 
 		stage.addActor(playerButton);
 
 		playerButton.addListener(new ClickListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) { //metoda po kliknieciu co ma sie stac
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { // metoda
+																									// po
+																									// kliknieciu
+																									// co
+																									// ma
+																									// sie
+																									// stac
 
 				player.reactOnClick();
-				game.addPoint(); //po kliknieciu dodanie punktu
+				game.addPoint(); // po kliknieciu dodanie punktu
 
 				return super.touchDown(event, x, y, pointer, button);
 			}
@@ -67,7 +96,8 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	public void render(float delta) {
-		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym	screenie
+		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
+								// screenie
 		update(); // najpoierw update przez rysowaniem
 
 		spriteBatch.begin();
@@ -77,7 +107,8 @@ public class GameplayScreen extends AbstractScreen {
 
 	private void update() {
 		scoreLabel.setText("Score: " + game.getPoints());
-		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow na scenie
+		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow
+						// na scenie
 
 	}
 
