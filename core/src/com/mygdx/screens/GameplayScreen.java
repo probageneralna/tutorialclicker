@@ -1,8 +1,11 @@
 package com.mygdx.screens;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
@@ -11,6 +14,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	private Player player;
 	private Button playerButton; // to w co sie wciska, zeby player sie poruszal
+	private Label scoreLabel;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -20,6 +24,16 @@ public class GameplayScreen extends AbstractScreen {
 	protected void init() {
 		initPlayer();
 		initPlayerButton();
+		initScoreLabel();
+	}
+
+	private void initScoreLabel() {
+		LabelStyle labelStyle = new LabelStyle();
+		labelStyle.font = new BitmapFont(); //odmyslny styl
+		scoreLabel = new Label("Test 123", labelStyle);
+		scoreLabel.setX(20);
+		scoreLabel.setY(650);
+		stage.addActor(scoreLabel);
 	}
 
 	private void initPlayerButton() {
@@ -53,8 +67,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	public void render(float delta) {
-		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
-								// screenie
+		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym	screenie
 		update(); // najpoierw update przez rysowaniem
 
 		spriteBatch.begin();
