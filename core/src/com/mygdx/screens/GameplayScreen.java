@@ -76,8 +76,9 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void update() {
-		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow
-						// na scenie
+		scoreLabel.setText("Score: " + game.getPoints());
+		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow na scenie
+
 	}
 
 }
