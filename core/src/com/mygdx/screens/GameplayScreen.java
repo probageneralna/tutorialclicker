@@ -1,21 +1,18 @@
 package com.mygdx.screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
 import com.mygdx.ui.IClickCallback;
 import com.mygdx.ui.PlayerButton;
 import com.mygdx.ui.ResetScoreButton;
+import com.mygdx.ui.ScoreLabel;
 
 public class GameplayScreen extends AbstractScreen {
 
 	private Player player;
-	private PlayerButton playerButton; // to w co sie wciska, zeby player sie
-										// poruszal
+	private PlayerButton playerButton; // to w co sie wciska, zeby player sie										// poruszal
 	private ResetScoreButton resetScoreButton;
-	private Label scoreLabel;
+	private ScoreLabel scoreLabel;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -42,11 +39,8 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void initScoreLabel() {
-		LabelStyle labelStyle = new LabelStyle();
-		labelStyle.font = new BitmapFont(); // odmyslny styl
-		scoreLabel = new Label("Test 123", labelStyle);
-		scoreLabel.setX(20);
-		scoreLabel.setY(650);
+
+		scoreLabel = new ScoreLabel();
 		stage.addActor(scoreLabel);
 	}
 
