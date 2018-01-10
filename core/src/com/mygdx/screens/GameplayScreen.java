@@ -28,33 +28,28 @@ public class GameplayScreen extends AbstractScreen {
 
 	private void initResetScoreButton() {
 		resetScoreButton = new ResetScoreButton(new IClickCallback() {
-
 			@Override
 			public void onClick() {
 				game.resetGameScore();
 			}
 		});
-
 		stage.addActor(resetScoreButton);
-	}
-
-	private void initScoreLabel() {
-
-		scoreLabel = new ScoreLabel();
-		stage.addActor(scoreLabel);
 	}
 
 	private void initPlayerButton() {
 		playerButton = new PlayerButton(new IClickCallback() {
-
 			@Override
 			public void onClick() {
 				player.reactOnClick();
 				game.addPoint(); // po kliknieciu dodanie punktu
 			}
 		});
-
 		stage.addActor(playerButton);
+	}
+
+	private void initScoreLabel() {
+		scoreLabel = new ScoreLabel();
+		stage.addActor(scoreLabel);
 	}
 
 	private void initPlayer() {
@@ -76,7 +71,5 @@ public class GameplayScreen extends AbstractScreen {
 		scoreLabel.setText("Score: " + game.getPoints());
 		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow
 						// na scenie
-
 	}
-
 }
