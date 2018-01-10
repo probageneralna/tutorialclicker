@@ -9,11 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
+import com.mygdx.ui.IClickCallback;
+import com.mygdx.ui.PlayerButton;
 
 public class GameplayScreen extends AbstractScreen {
 
 	private Player player;
-	private Button playerButton; // to w co sie wciska, zeby player sie poruszal
+	private PlayerButton playerButton; // to w co sie wciska, zeby player sie poruszal
 	private Button resetScoreButton;
 	private Label scoreLabel;
 
@@ -42,9 +44,9 @@ public class GameplayScreen extends AbstractScreen {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
-				
+
 				game.resetGameScore();
-				
+
 				return super.touchDown(event, x, y, pointer, button);
 			}
 		});
@@ -61,33 +63,16 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void initPlayerButton() {
-		playerButton = new Button(new ButtonStyle()); // pusty buttonstyle,
-														// czyli przezroczysty
-		playerButton.setWidth(460);
-		playerButton.setHeight(360);
-		playerButton.setX(10);
-		playerButton.setY(170);
-		playerButton.setDebug(true); // taki zarys
+		playerButton = new PlayerButton(new IClickCallback() {
 
-		stage.addActor(playerButton);
-
-		playerButton.addListener(new ClickListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { // metoda
-																									// po
-																									// kliknieciu
-																									// co
-																									// ma
-																									// sie
-																									// stac
-
+			public void onClick() {
 				player.reactOnClick();
 				game.addPoint(); // po kliknieciu dodanie punktu
-
-				return super.touchDown(event, x, y, pointer, button);
 			}
-
 		});
+
+		stage.addActor(playerButton);
 	}
 
 	private void initPlayer() {
