@@ -18,12 +18,12 @@ public class SplashScreen extends AbstractScreen{
 			public void run() {
 				game.setScreen(new GameplayScreen(game)); //przejscie na nowy screen
 			}
-		}, 1); //task wykona sie po 1 sekundzie
+		}, 2); //task wykona sie po 1 sekundzie
 	}
 
 	@Override
 	protected void init() {
-		splashImg = new Texture("badlogic.jpg");
+		splashImg = new Texture("splash.png");
 	}
 
 	public void render(float delta) {

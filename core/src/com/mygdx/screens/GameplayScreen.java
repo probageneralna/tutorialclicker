@@ -1,5 +1,6 @@
 package com.mygdx.screens;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
 import com.mygdx.ui.IClickCallback;
@@ -9,6 +10,7 @@ import com.mygdx.ui.ScoreLabel;
 
 public class GameplayScreen extends AbstractScreen {
 
+	private Texture bgTexture;
 	private Player player;
 	private PlayerButton playerButton; // to w co sie wciska, zeby player sie										// poruszal
 	private ResetScoreButton resetScoreButton;
@@ -20,6 +22,7 @@ public class GameplayScreen extends AbstractScreen {
 
 	@Override
 	protected void init() {
+		bgTexture = new Texture("bg.png");
 		initPlayer();
 		initPlayerButton();
 		initResetScoreButton();
@@ -58,9 +61,13 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	public void render(float delta) {
-		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
-								// screenie
+		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym screenie
 		update(); // najpoierw update przez rysowaniem
+
+		spriteBatch.begin();
+		spriteBatch.draw(bgTexture, 0, 0);
+		spriteBatch.end();
+		//osobno trzeba rozdzielic, najpierw background pozniej scena
 
 		spriteBatch.begin();
 		stage.draw();
