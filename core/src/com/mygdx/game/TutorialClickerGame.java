@@ -64,4 +64,13 @@ public class TutorialClickerGame extends Game {
 		return points;
 	}
 
+	public void addPoints(int pointsToAdd) {
+		points += pointsToAdd; //dodane punkty przekazanen w parametrze
+		updateSavedScoreInPrefs();
+	}
+
+	public void addPassiveIncome() {
+		//TODO implement
+	}
+
 }

@@ -3,6 +3,7 @@ package com.mygdx.screens;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.entities.FlyingObject;
+import com.mygdx.entities.FlyingObject.FlyingObjectType;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
 import com.mygdx.ui.IClickCallback;
@@ -34,7 +35,7 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	private void initFlyingObjects() {
-		flyingObject1 = new FlyingObject(FlyingObject.MONEY);
+		flyingObject1 = new FlyingObject(FlyingObjectType.PASSIVE, game);
 		stage.addActor(flyingObject1);
 		flyingObject1.flyLikeHell();
 	}
