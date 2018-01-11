@@ -2,6 +2,7 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.mygdx.entities.FlyingObject;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
 import com.mygdx.ui.IClickCallback;
@@ -16,6 +17,7 @@ public class GameplayScreen extends AbstractScreen {
 	private PlayerButton playerButton; // to w co sie wciska, zeby player sie										// poruszal
 	private ResetScoreButton resetScoreButton;
 	private ScoreLabel scoreLabel;
+	private FlyingObject flyingObject1;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -28,6 +30,13 @@ public class GameplayScreen extends AbstractScreen {
 		initPlayerButton();
 		initResetScoreButton();
 		initScoreLabel();
+		initFlyingObjects();
+	}
+
+	private void initFlyingObjects() {
+		flyingObject1 = new FlyingObject(FlyingObject.MONEY);
+		stage.addActor(flyingObject1);
+		flyingObject1.flyLikeHell();
 	}
 
 	private void initBg() {
