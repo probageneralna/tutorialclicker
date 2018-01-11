@@ -2,8 +2,7 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.mygdx.entities.FlyingObject;
-import com.mygdx.entities.FlyingObject.FlyingObjectType;
+import com.mygdx.controllers.FlyingObjectController;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
 import com.mygdx.ui.IClickCallback;
@@ -15,29 +14,28 @@ public class GameplayScreen extends AbstractScreen {
 
 	private Image bgImg;
 	private Player player;
-	private PlayerButton playerButton; // to w co sie wciska, zeby player sie										// poruszal
+	private PlayerButton playerButton; // to w co sie wciska, zeby player sie //
+										// poruszal
 	private ResetScoreButton resetScoreButton;
 	private ScoreLabel scoreLabel;
-	private FlyingObject flyingObject1;
+	private FlyingObjectController flyinObjectController;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
 	}
 
 	@Override
-	protected void init() { //KOLEJNOSC TYCH INITOW JEST WAZNA!!!
+	protected void init() { // KOLEJNOSC TYCH INITOW JEST WAZNA!!!
 		initBg();
 		initPlayer();
 		initPlayerButton();
 		initResetScoreButton();
 		initScoreLabel();
-		initFlyingObjects();
+		initFlyingStuffController();
 	}
 
-	private void initFlyingObjects() {
-		flyingObject1 = new FlyingObject(FlyingObjectType.PASSIVE, game);
-		stage.addActor(flyingObject1);
-		flyingObject1.flyLikeHell();
+	private void initFlyingStuffController() {
+		flyinObjectController = new FlyingObjectController(game, stage);
 	}
 
 	private void initBg() {
@@ -77,7 +75,8 @@ public class GameplayScreen extends AbstractScreen {
 	}
 
 	public void render(float delta) {
-		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym screenie
+		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
+								// screenie
 		update(); // najpoierw update przez rysowaniem
 
 		spriteBatch.begin();
