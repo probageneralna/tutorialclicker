@@ -1,6 +1,7 @@
 package com.mygdx.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -20,8 +21,11 @@ public class FlyingObject extends Image {
 	private final static int WIDHT = 80;
 	private final static int HEIGHT = 80;
 
-	private final static int STARTING_X = 0;
+	private final static int STARTING_X_1 = 0;
+	private final static int STARTING_X_2 = TutorialClickerGame.WIDTH;
 	private final static int STARTING_Y = -100; // startuje poza ekranem
+
+	private int startingX;
 
 	private TutorialClickerGame game;
 	private FlyingObjectType type;
@@ -35,7 +39,8 @@ public class FlyingObject extends Image {
 		this.setOrigin(WIDHT / 2, HEIGHT / 2); // miejsce, skad jest poruszane
 		this.setSize(WIDHT, HEIGHT); // rozmiar
 
-		this.setPosition(STARTING_X, STARTING_Y); // starting position
+		startingX = MathUtils.randomBoolean() ? STARTING_X_1 : STARTING_X_2;
+		this.setPosition(startingX, STARTING_Y); // starting position
 
 		this.addListener(new ClickListener() {
 			@Override
@@ -69,22 +74,38 @@ public class FlyingObject extends Image {
 		return "";
 	}
 
-	public void flyLikeHell() {
-		// 3 akcje polaczone w jedna sekwencje
-		Action a = Actions.parallel // 300 w prawo, 200 w gore, obracac przez 5
-									// sekund
-		(Actions.moveBy(300, 200, 5), Actions.rotateBy(360, 5));
+public void flyLikeHell(){
 
-		Action b = Actions.parallel(Actions.moveBy(-500, 900, 3), Actions.rotateBy(360, 3));
+		int xSign = 0; //w zaleznosci czy z prawej czy z lewej strny ma leciec
+		if(startingX == STARTING_X_1){
+			xSign = 1;
+		} else {
+			xSign = -1;
+		}
 
-		Action c = Actions.run(new Runnable() { // jezeli a i b sie wykonaja to
-			// usuwamy obiekt ze sceny
+		int time1 = MathUtils.random(1, 6);
+		int time2 = MathUtils.random(1, 6);
+
+		int randomYEffect = MathUtils.random(-100, 500); //o ile poleci w gore
+
+		Action a = Actions.parallel(
+				Actions.moveBy(xSign * 300 + (MathUtils.random(-200, 200)), 200 + randomYEffect, time1),
+				Actions.rotateBy(360, time1)
+				);
+
+		Action b = Actions.parallel(
+				Actions.moveBy(xSign * -500 + (MathUtils.random(-200, 200)), 900, time2),
+				Actions.rotateBy(360, time2)
+				);
+
+		Action c = Actions.run(new Runnable() {
 
 			@Override
 			public void run() {
 				FlyingObject.this.remove();
 			}
 		});
+
 
 		this.addAction(Actions.sequence(a, b, c));
 	}
