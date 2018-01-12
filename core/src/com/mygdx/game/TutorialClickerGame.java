@@ -3,7 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Sound;
 import com.mygdx.screens.SplashScreen;
+import com.mygdx.service.SoundService;
 
 public class TutorialClickerGame extends Game {
 
@@ -13,6 +15,8 @@ public class TutorialClickerGame extends Game {
 	public final static String GAME_NAME = "Tutorial Clicker";
 	public final static int WIDTH = 480;
 	public final static int HEIGHT = 700;
+
+	private SoundService soundService;
 
 	private boolean paused; // czy gra jest zapausowana, nazwano to flag¹\
 
@@ -27,10 +31,17 @@ public class TutorialClickerGame extends Game {
 												// przekazujemy ta klase Game
 	}
 
+
 	private void init() {
 		prefs = Gdx.app.getPreferences(GAME_PREFS);
 		loadScore();
+		initSoundService();
 	}
+
+	private void initSoundService() {
+		soundService = new SoundService();
+	}
+
 
 	private void loadScore() {
 		points = prefs.getInteger(GAME_SCORE); // aby wczytywac dane po
@@ -65,12 +76,16 @@ public class TutorialClickerGame extends Game {
 	}
 
 	public void addPoints(int pointsToAdd) {
-		points += pointsToAdd; //dodane punkty przekazanen w parametrze
+		points += pointsToAdd; // dodane punkty przekazanen w parametrze
 		updateSavedScoreInPrefs();
 	}
 
 	public void addPassiveIncome() {
-		//TODO implement
+		// TODO implement
+	}
+
+	public SoundService getSoundService() {
+		return soundService;
 	}
 
 }
