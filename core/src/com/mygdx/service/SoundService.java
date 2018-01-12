@@ -39,7 +39,7 @@ public class SoundService {
 	}
 
 	public void startPlayingMusic(boolean looped){
-		music.setVolume(0.15f);
+		music.setVolume(0.15f); //glosnosc od 0 do 1
 		music.play();
 		music.setLooping(looped);
 	}
