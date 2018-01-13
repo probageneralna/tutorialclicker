@@ -63,5 +63,7 @@ public class ScoreService {
 		return points;
 	}
 
-
+	public int getPassiveIncome() {
+		return passiveIncome;
+	}
 }

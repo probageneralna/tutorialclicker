@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.mygdx.controllers.FlyingObjectController;
 import com.mygdx.entities.Player;
 import com.mygdx.game.TutorialClickerGame;
+import com.mygdx.service.PassiveIncomeService;
 import com.mygdx.ui.IClickCallback;
 import com.mygdx.ui.PlayerButton;
 import com.mygdx.ui.ResetScoreButton;
@@ -19,6 +20,7 @@ public class GameplayScreen extends AbstractScreen {
 	private ResetScoreButton resetScoreButton;
 	private ScoreLabel scoreLabel;
 	private FlyingObjectController flyinObjectController;
+	private PassiveIncomeService passiveIncomeService;
 
 	public GameplayScreen(TutorialClickerGame game) {
 		super(game);
@@ -33,6 +35,28 @@ public class GameplayScreen extends AbstractScreen {
 		initScoreLabel();
 		initFlyingStuffController();
 		startTheMusic();
+		initPassiveIncomeService();
+	}
+
+	public void render(float delta) {
+		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
+								// screenie
+		update(); // najpoierw update przez rysowaniem
+
+		spriteBatch.begin();
+		stage.draw();
+		spriteBatch.end();
+	}
+
+	private void update() {
+		scoreLabel.setText("Score: " + game.getScoreService().getPoints());
+		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow
+						// na scenie
+	}
+
+	private void initPassiveIncomeService() {
+		passiveIncomeService = new PassiveIncomeService(game.getScoreService());
+		passiveIncomeService.start();
 	}
 
 	private void startTheMusic() {
@@ -79,19 +103,4 @@ public class GameplayScreen extends AbstractScreen {
 		stage.addActor(player); // dodanie aktora do sceny
 	}
 
-	public void render(float delta) {
-		super.render(delta); // super, czyli wszystko to, co w abstarcyjnym
-								// screenie
-		update(); // najpoierw update przez rysowaniem
-
-		spriteBatch.begin();
-		stage.draw();
-		spriteBatch.end();
-	}
-
-	private void update() {
-		scoreLabel.setText("Score: " + game.getScoreService().getPoints());
-		stage.act(); // czyli rob update co kzda klatke dla wszystkich aktorow
-						// na scenie
-	}
 }
