@@ -1,28 +1,21 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.audio.Sound;
 import com.mygdx.screens.SplashScreen;
+import com.mygdx.service.ScoreService;
 import com.mygdx.service.SoundService;
 
 public class TutorialClickerGame extends Game {
 
-	public final static String GAME_PREFS = "pl.javadevmatt.preclicker.pref";
-	public final static String GAME_SCORE = "pl.javadevmatt.preclicker.pref.score";
-
 	public final static String GAME_NAME = "Tutorial Clicker";
+
 	public final static int WIDTH = 480;
 	public final static int HEIGHT = 700;
 
 	private SoundService soundService;
+	private ScoreService scoreService;
 
 	private boolean paused; // czy gra jest zapausowana, nazwano to flag¹\
-
-	private Preferences prefs; // mozna tu zapisac np punkty
-
-	private int points; // zliczanie punktow
 
 	@Override
 	public void create() {
@@ -31,36 +24,17 @@ public class TutorialClickerGame extends Game {
 												// przekazujemy ta klase Game
 	}
 
-
 	private void init() {
-		prefs = Gdx.app.getPreferences(GAME_PREFS);
-		loadScore();
 		initSoundService();
+		initScoreService();
+	}
+
+	private void initScoreService() {
+		scoreService  = new ScoreService();
 	}
 
 	private void initSoundService() {
 		soundService = new SoundService();
-	}
-
-
-	private void loadScore() {
-		points = prefs.getInteger(GAME_SCORE); // aby wczytywac dane po
-												// zamknieciu aplikacji
-	}
-
-	public void addPoint() {
-		points++;
-		updateSavedScoreInPrefs();
-	}
-
-	public void resetGameScore() {
-		points = 0;
-		updateSavedScoreInPrefs();
-	}
-
-	private void updateSavedScoreInPrefs() {
-		prefs.putInteger(GAME_SCORE, points);
-		prefs.flush();// musi byc, zeby zapisac w pamieci
 	}
 
 	public boolean isPaused() {
@@ -71,21 +45,11 @@ public class TutorialClickerGame extends Game {
 		this.paused = paused;
 	}
 
-	public int getPoints() {
-		return points;
-	}
-
-	public void addPoints(int pointsToAdd) {
-		points += pointsToAdd; // dodane punkty przekazanen w parametrze
-		updateSavedScoreInPrefs();
-	}
-
-	public void addPassiveIncome() {
-		// TODO implement
-	}
-
 	public SoundService getSoundService() {
 		return soundService;
 	}
 
+	public ScoreService getScoreService() {
+		return scoreService;
+	}
 }
